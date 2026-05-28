@@ -3,6 +3,10 @@
 ## Overview
 This lesson is the core of your transition. We will map the "Verbs" of the Tidyverse (`dplyr` and `tidyr`) to their Python equivalents in **Pandas** and **Polars**.
 
+### Note
+
+If you intend to apply **Polars** methods to a **Pandas** data frame, you must first convert to a Polars data frame. The standard way is `df_polars = pl.from_pandas(df_pandas)`.
+
 ---
 
 ## 1. Categorical Data (Factors)
@@ -235,12 +239,20 @@ df[0:5] # Polars uses standard Python slicing directly
 ---
 
 ## 🏆 Challenge Exercise: The Car Cleanup
-Using the `mtcars` dataset:
+First, import the `mtcars` dataset using the following:
+
+```python
+import statsmodels.api as sm
+mtcars_pd = sm.datasets.get_rdataset("mtcars").data
+mtcars_pl = pl.from_pandas(mtcars_pd)
+```
+
+Then, using the `mtcars` dataset:
 1.  **Filter:** Only keep cars with `hp` > 100.
 2.  **Mutate:** Create a column `efficiency` = `mpg / wt`.
 3.  **Group:** Group by `cyl`.
 4.  **Summarize:** Calculate the `mean` efficiency for each group.
-5.  **Bonus:** Implement this entire chain once in **Pandas** and once in **Polars**.
+5.  **Bonus:** Implement this entire chain once in **Pandas** (using `mtcars_pd`) and once in **Polars** (using `mtcars_pl`).
 
 ---
 [⬅️ Previous](../01_foundations/02_jupyter.md) | [🏠 Table of Contents](../../README.md) | [Next ➡️](02_datetime.md)

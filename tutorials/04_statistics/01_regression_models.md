@@ -6,7 +6,8 @@ Python splits statistics into two worlds: **Inference** (Statsmodels) and **Pred
 ## 1. Statsmodels: Linear Regression (The `lm` equivalent)
 `statsmodels` provides a formula interface that allows you to specify models just like you do in R.
 
-### Python (Pandas)
+### Python 
+**Note:** Statsmodels requires Pandas and cannot be used on Polars data frames directly. If you are using a Polars data frame, you must convert it to Pandas using `.to_pandas()` first.
 ```python
 import statsmodels.formula.api as smf
 import pandas as pd
@@ -17,18 +18,6 @@ df = sns.load_dataset("mpg")
 
 # Define the formula: mpg explained by displacement and weight
 model = smf.ols(formula="mpg ~ displacement + weight", data=df).fit()
-```
-
-### Python (Polars)
-```python
-import polars as pl
-import seaborn as sns
-
-# Load data and convert to Polars
-df_pl = pl.from_pandas(sns.load_dataset("mpg"))
-
-# Statsmodels requires Pandas, so we convert back for the fit
-model = smf.ols(formula="mpg ~ displacement + weight", data=df_pl.to_pandas()).fit()
 ```
 
 ```python
